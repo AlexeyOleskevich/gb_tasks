@@ -47,9 +47,9 @@ class ToRomanConverter {
 
         for (Integer num : table.keySet()) {
             while (n >= num) {
-                int d = n / num;
+                int digit = n / num;
                 n = n % num;
-                for (int j = 0; j < d; j++) {
+                for (int j = 0; j < digit; j++) {
                     romanBuilder.append(table.get(num));
                 }
             }
