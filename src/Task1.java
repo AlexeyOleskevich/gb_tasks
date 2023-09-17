@@ -1,3 +1,5 @@
+package src;
+
 import java.util.*;
 
 public class Task1 {
@@ -76,9 +78,21 @@ class PhoneBook {
 
     public String getContactsList() {
         StringBuilder list = new StringBuilder();
-        for (Map.Entry<String, Set<String>> entry : contacts.entrySet()) {
+        LinkedHashMap<String,Set<String>> sorted = sortByPhoneAmount();
+        for (Map.Entry<String, Set<String>> entry : sorted.entrySet()) {
             list.append(entry.getKey()).append(" = ").append(entry.getValue()).append("\n");
+
         }
         return list.toString();
+    }
+
+    private LinkedHashMap<String, Set<String>> sortByPhoneAmount() {
+        List<Map.Entry<String, Set<String>>> list = new ArrayList<>(contacts.entrySet());
+        Collections.sort(list, (a,b) -> b.getValue().size() - a.getValue().size());
+        LinkedHashMap<String,Set<String>> sortedList = new LinkedHashMap<>();
+        for (Map.Entry<String, Set<String>> entry : list) {
+            sortedList.put(entry.getKey(), entry.getValue());
+        }
+        return sortedList;
     }
 }
